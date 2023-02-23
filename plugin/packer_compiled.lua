@@ -104,6 +104,16 @@ _G.packer_plugins = {
     path = "/home/monokaijs/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/monokaijs/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
+  ["tokyonight.nvim"] = {
+    loaded = true,
+    path = "/home/monokaijs/.local/share/nvim/site/pack/packer/start/tokyonight.nvim",
+    url = "https://github.com/folke/tokyonight.nvim"
+  },
   ["vim-airline"] = {
     loaded = true,
     path = "/home/monokaijs/.local/share/nvim/site/pack/packer/start/vim-airline",

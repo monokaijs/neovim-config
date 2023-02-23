@@ -45,3 +45,5 @@ require("indent_blankline").setup {
 -- Mappings
 local keyset = vim.keymap.set
 keyset('i', '<c-space>', 'coc#refresh()', {silent=true, expr=true})
+keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], {expr=true})
+
