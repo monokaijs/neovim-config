@@ -1,5 +1,7 @@
 # MonokaiJs's Neovim Config
 
+Don't forget to install [Packer](https://github.com/wbthomason/packer.nvim) before using this setup.
+
 Clone this repository to this path `~/.config/nvim` as below:
 ```
 git clone git@github.com:monokaijs/neovim-config.git ~/.config/nvim
