@@ -54,3 +54,12 @@ local keyset = vim.keymap.set
 keyset('i', '<c-space>', 'coc#refresh()', {silent=true, expr=true})
 keyset("i", "<cr>", [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], {expr=true})
 
+-- Treesitter
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "lua", "vim", "help", "javascript", "typescript", "go", "php", "markdown", "markdown_inline", "lua", "json", "html", "java", "css" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true
+  }
+}
