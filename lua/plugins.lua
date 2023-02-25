@@ -3,16 +3,16 @@ vim.cmd [[packadd packer.nvim]]
 local group = vim.api.nvim_create_augroup("startup", {clear = true})
 
 require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+  use {'wbthomason/packer.nvim'}
 
-  use 'vim-airline/vim-airline'
-  use 'preservim/nerdtree'
+  use {'vim-airline/vim-airline'}
+  -- use {'preservim/nerdtree'} -- We don't use nerdtree anymore since it looks quite boring
   use {'neoclide/coc.nvim', run = 'yarn install --frozen-lockfile'}
-  use 'nvim-tree/nvim-web-devicons'
+  use {'nvim-tree/nvim-web-devicons'}
   use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
-  use "lukas-reineke/indent-blankline.nvim"
-  use 'folke/tokyonight.nvim'
-  use 'akinsho/toggleterm.nvim'
+  use {'lukas-reineke/indent-blankline.nvim'}
+  use {'folke/tokyonight.nvim'}
+  use {'akinsho/toggleterm.nvim'}
   use {
     'nvim-treesitter/nvim-treesitter',
     run = function()
@@ -20,12 +20,22 @@ require('packer').startup(function(use)
       ts_update()
     end
   }
+  use {
+  'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    tag = 'nightly'
+  }
 end)
 
 vim.cmd[[colorscheme tokyonight]]
 
-vim.api.nvim_create_autocmd("VimEnter", {command="NERDTree | wincmd p", group=group})
-vim.api.nvim_create_autocmd("BufEnter", {command="if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif"})
+-- NERDTree
+-- vim.api.nvim_create_autocmd("VimEnter", {command="NERDTree | wincmd p", group=group})
+-- vim.api.nvim_create_autocmd("BufEnter", {command="if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif"})
+
+-- VimAirline config
 vim.g.airline_powerline_fonts = 1
 
 -- Toggle Term
@@ -63,3 +73,28 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
+-- Nvim Tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
+
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+  view = {
+    width = 30,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+vim.api.nvim_create_autocmd("VimEnter", {command="NvimTreeToggle", group=group})
