@@ -36,6 +36,7 @@ require('packer').startup(function(use)
   }
   use {'editorconfig/editorconfig-vim'}
   use {'dense-analysis/ale'}
+  use {'wakatime/vim-wakatime'}
 end)
 
 vim.cmd[[colorscheme tokyonight]]
