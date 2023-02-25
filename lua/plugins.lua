@@ -1,6 +1,8 @@
 vim.cmd [[packadd packer.nvim]]
 
 local group = vim.api.nvim_create_augroup("startup", {clear = true})
+local packer = require('packer')
+local util = require("packer.util")
 
 require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
@@ -21,15 +23,29 @@ require('packer').startup(function(use)
     end
   }
   use {
-  'nvim-tree/nvim-tree.lua',
+    'nvim-tree/nvim-tree.lua',
     requires = {
       'nvim-tree/nvim-web-devicons',
     },
     tag = 'nightly'
   }
+  use {
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.1',
+    requires = {{'nvim-lua/plenary.nvim'}},
+  }
+  use {'editorconfig/editorconfig-vim'}
+  use {'dense-analysis/ale'}
 end)
 
 vim.cmd[[colorscheme tokyonight]]
+
+local compile_path = util.join_paths(
+  vim.fn.stdpath("config"), "plugin", "packer_compiled.lua"
+)
+
+vim.cmd("source " .. compile_path)
+
 
 -- NERDTree
 -- vim.api.nvim_create_autocmd("VimEnter", {command="NERDTree | wincmd p", group=group})
@@ -92,9 +108,12 @@ require("nvim-tree").setup({
   renderer = {
     group_empty = true,
   },
-  filters = {
-    dotfiles = true,
-  },
 })
 
-vim.api.nvim_create_autocmd("VimEnter", {command="NvimTreeToggle", group=group})
+vim.api.nvim_create_autocmd("VimEnter", {callback = function() require("nvim-tree.api").tree.open() end})
+
+-- Telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
